@@ -11,22 +11,37 @@ with open ('detail.csv',encoding='utf8', mode='r') as f:
         s = s.split(';')
         data.append(s)
 
-print(len(data))
-
 data_detail=[]
 
+world =[]
+russia=[]
 
 for item in data:
     if len(item) >= 3:
         data_detail.append(item)
     else:
-        print(item)
-        
-print(len(data_detail))
+        pass
 
+for item in data_detail:
+    for i in item:
+        if i == ('Исходящий международный'):            
+            world.append(item)
+            #print(item)
+        elif i == ('Исх. междугородний'):
+            russia.append(item)
+        else:
+            pass
 
-    
-        
-        
+world2=[]
+for item in world:
+    if len(item) >= 2:
+        world2.append(float(item[-1]))
 
-            
+def listsum(numList):
+    theSum = 0
+    for i in numList:
+        theSum = theSum + i
+    return theSum
+
+print('Потрачено на междугородние переговоры',listsum(world2))
+        
