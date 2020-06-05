@@ -1,12 +1,13 @@
 import re
 
-
+# функция суммирования
 def listsum(numList):
     theSum = 0
     for i in numList:
         theSum = theSum + i
     return round(theSum, 2)
 
+# Переменные
 data = []
 world =[]
 world2=[]
@@ -130,13 +131,17 @@ for item in world:
             ger.append(item)
         else:
             pass
+
+
+
+#Казахстан считаем звонки и сумму
 kaz_apr=[]
 kaz_may=[]
 kaz_time_a=[]
 kaz_time_m=[]
+kaz_summ_a=[]
+kaz_summ_m=[]
 
-
-#Казахстан считаем звонки и сумму
 for item in kaz:
     for i in item:
         if re.search(r'04.2020', i):
@@ -144,24 +149,66 @@ for item in kaz:
             kaz_apr.append(item)
         elif re.search(r'05.2020', i):
             kaz_may.append(item)
+            
 # Казахстан считаем время апрель
 for item in kaz_apr:
     if len(item) >= 8:
         kaz_time_a.append(float(item[5]))
+        
+# Казахстан считаем сумму апрель
+for item in kaz_apr:
+    if len(item) >= 8:
+        kaz_summ_a.append(float(item[-1]))
+        
 
-# Казахстан считаем время май
+# Казахстан считаем сумму май
 
 for item in kaz_may:
     if len(item) >= 8:
         kaz_time_m.append(float(item[5]))
 
+for item in kaz_may:
+    if len(item) >= 8:
+        kaz_summ_m.append(float(item[-1]))        
+
 ka = round(listsum(kaz_time_a) / 60, 1) # вычисляем минуты в апреле
 km = round(listsum(kaz_time_m) / 60, 1) # вычисляем минуты в мае
+kaz_sa = round(listsum(kaz_summ_a), 2) # вычисляем сумму  в апреле
+kaz_sm = round(listsum(kaz_summ_m), 2) # вычисляем сумму в мае
 
-print('Казахстан всего звонков:', len(kaz), 'в апреле: ', len(kaz_apr), ' в мае:', len(kaz_may))
-print('Всего минут в апреле', ka, 'в мае ', km, 'стомость минуты звонка: ')
+#Украина считаем звонки и сумму
+ukr_apr=[]
+ukr_may=[]
+ukr_time_a=[]
+ukr_time_m=[]
 
-print(len(ukr))
+for item in ukr:
+    for i in item:
+        if re.search(r'04.2020', i):
+            i.replace(',','.')
+            ukr_apr.append(item)
+        elif re.search(r'05.2020', i):
+            ukr_may.append(item)
+# Украина считаем время апрель
+for item in ukr_apr:
+    if len(item) >= 8:
+        ukr_time_a.append(float(item[5]))
+
+# Украина считаем время май
+
+for item in kaz_may:
+    if len(item) >= 8:
+        ukr_time_m.append(float(item[5]))
+
+ua = round(listsum(ukr_time_a) / 60, 1) # вычисляем минуты в апреле
+um = round(listsum(ukr_time_m) / 60, 1) # вычисляем минуты в мае
+
+print('Казахстан всего звонков:', len(kaz), 'из них в апреле - ', len(kaz_apr), 'и в мае -', len(kaz_may))
+print('Всего минут в апреле', ka, 'на сумму', kaz_sa,'; в мае ', km, 'на сумму',kaz_sm,'стоимость минуты звонка')
+print()
+print('Украина всего звонков:', len(ukr), 'из них в апреле: ', len(ukr_apr), 'и в мае -', len(ukr_may))
+print('Всего минут в апреле', ua, 'в мае ', um, 'стоимость минуты звонка: ')
+print()
 print(len(bel))
 print(len(kyrg))
 print(len(usa))
