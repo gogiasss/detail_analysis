@@ -105,6 +105,70 @@ for item in world_may:
     if len(item) >= 2:
         price_world_may.append(float(item[-1]))
 
+# Делим по странам Апрель
+
+kaz=[]
+ukr=[]
+bel=[]
+kyrg=[]
+usa=[]
+ger=[]
+
+for item in world:
+    for i in item:
+        if re.search(r'Казахстан', i):            
+            kaz.append(item)
+        elif re.search(r'Украина', i):
+            ukr.append(item)
+        elif re.search(r'Беларусь', i):
+            bel.append(item)
+        elif re.search(r'Кыргызстан', i):
+            kyrg.append(item)
+        elif re.search(r'Соединенные Штаты Америки', i):
+            usa.append(item)
+        elif re.search(r'Германия', i):
+            ger.append(item)
+        else:
+            pass
+kaz_apr=[]
+kaz_may=[]
+kaz_time_a=[]
+kaz_time_m=[]
+
+
+#Казахстан считаем звонки и сумму
+for item in kaz:
+    for i in item:
+        if re.search(r'04.2020', i):
+            i.replace(',','.')
+            kaz_apr.append(item)
+        elif re.search(r'05.2020', i):
+            kaz_may.append(item)
+# Казахстан считаем время апрель
+for item in kaz_apr:
+    if len(item) >= 8:
+        kaz_time_a.append(float(item[5]))
+
+# Казахстан считаем время май
+
+for item in kaz_may:
+    if len(item) >= 8:
+        kaz_time_m.append(float(item[5]))
+
+ka = round(listsum(kaz_time_a) / 60, 1) # вычисляем минуты в апреле
+km = round(listsum(kaz_time_m) / 60, 1) # вычисляем минуты в мае
+
+print('Казахстан всего звонков:', len(kaz), 'в апреле: ', len(kaz_apr), ' в мае:', len(kaz_may))
+print('Всего минут в апреле', ka, 'в мае ', km, 'стомость минуты звонка: ')
+
+print(len(ukr))
+print(len(bel))
+print(len(kyrg))
+print(len(usa))
+print(len(ger))
+
+# Делим по странам Май
+
 all = len(russia) + len(world)
         
 print('Всего платных действий совершено', all)
